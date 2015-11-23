@@ -4,14 +4,14 @@ public class Heap
 {
 	public int position=0;
 	int MAX_SIZE=10; //start MAX_SIZE with 10
-	 int[] heap = new int[MAX_SIZE];
+	 Vertex[] heap = new Vertex[MAX_SIZE];
 	
-	public void insert(int value)
+	public void insert(Vertex e)
 	{
 		position = position+1;
-		if(position==MAX_SIZE)
+		if(position>=MAX_SIZE-1)
 			resize(2*MAX_SIZE);
-		heap[position]=value;
+		heap[position]=e;
 	//	System.out.println("insterted at "+position+"value "+value);
 		heapify(position);
 	}
@@ -21,16 +21,16 @@ public class Heap
 			System.out.print(heap[i]+"  ");
 		System.out.println("  ");
 	}
-	public int MAX()
+	public Vertex MAX()
 	{
 		return heap[1]; //root node
 	}
 	
-	public int delMax()
+	public Vertex delMax()
 	{
 		//System.out.println("position ius "+position);
 		//System.out.println("pos+1="+heap[position+1]);
-		int max = this.MAX();
+		Vertex max = this.MAX();
 		this.delete(1);
 		
 	return max;
@@ -44,6 +44,7 @@ public class Heap
 		}
 		//	System.out.println(position+"Going to delete "+heap[index]+ heap[position]);
 		heap[index]= heap[position]; //value at index is lost
+		heap[position]=null;
 		position = position -1;
 		if(position < MAX_SIZE/4)
 			resize(MAX_SIZE/2); //Reduce the size of array into one-fourth
@@ -52,8 +53,8 @@ public class Heap
 	public void resize(int newSize)
 	{
 		MAX_SIZE = newSize;
-		int[] newArray = new int[newSize];
-		for(int i=0;i<position&&i<=newSize;i++)
+		Vertex[] newArray = new Vertex[newSize];
+		for(int i=0;i<=position&&i<=newSize;i++)
 			newArray[i]=heap[i];
 		heap = newArray;
 		
@@ -64,25 +65,28 @@ public class Heap
 		int leftChild = 2*index;
 		int rightChild = leftChild+1;
 		int largest = index;
-		if(heap[parent]<heap[index]&&parent>0)
+		if(parent>0&&heap[parent].getWeight()<heap[index].getWeight())
 			{
 			swap(parent,index);
 			heapify(parent);
 			}
-		else if(rightChild<=this.position&&heap[index]<heap[rightChild])
+		
+		if(rightChild<=this.position&&heap[largest].getWeight()<heap[rightChild].getWeight())
+			largest = rightChild;
+		
+		if(leftChild<=this.position&&heap[largest].getWeight()<heap[leftChild].getWeight())
+			largest = leftChild;
+		
+		if(largest!=index)
 		{
-			swap(rightChild,index);
-			heapify(rightChild);
+			swap(largest,index);
+			heapify(largest);
 		}
-		else if(leftChild<=this.position&&heap[index]<heap[leftChild])
-		{
-			swap(leftChild,index);
-			heapify(leftChild);
-		}
+		
 	}
 	private void swap(int i, int j)
 	{
-		int temp = heap[i];
+		Vertex temp = heap[i];
 		heap[i] = heap[j];
 		heap[j] = temp;
 	}
@@ -91,18 +95,18 @@ public class Heap
 	
 	Boolean isHeap()
 	{
-		int[] arr = heap;
+		Vertex[] arr = heap;
 		int n = position;
 	    // Start from root and go till the last internal
 	    // node
 	    for (int i=1; i<=(n-2)/2; i++)
 	    {
 	        // If left child is greater, return false
-	        if (arr[2*i] > arr[i])
+	        if (arr[2*i].getWeight() > arr[i].getWeight())
 	                return false;
 	 
 	        // If right child is greater, return false
-	        if (arr[2*i+1] > arr[i])
+	        if (arr[2*i+1].getWeight() > arr[i].getWeight())
 	                return false;
 	    }
 	    return true;
@@ -113,33 +117,53 @@ public class Heap
 			return true;
 		else return false;
 	}
+	
+	public void update_or_insert(int Vertex,double capacity) {
+		for(int i=1;i<=this.position;i++)
+			if(heap[i].getVertex()==Vertex)
+				{
+					if(heap[i].getWeight()<capacity)
+					heap[i].setWeight((int)capacity);
+					return;
+				}
+		Vertex v = new Vertex(capacity,Vertex);
+		this.insert(v);
+		
+	}
 
 	public static final void main(String[] args)
 	{
 		Heap h = new Heap();
 		for(int i=1;i<100;i++)
 			{
-			h.insert(i+200); //System.out.println(i);
+			Vertex e = new Vertex(i+200,i);
+			h.insert(e); //System.out.println(i);
 			}
 		
 	h.showHeap();
 	if(h.isHeap())
 		System.out.println("Is heap");
 	
-int max = h.delMax();
-System.out.println(max);
+Vertex max = h.delMax();
+System.out.println(max.getWeight());
 	//h.showHeap();
 	 max = h.delMax();
-	System.out.println(max);
+	 System.out.println(max.getWeight());
 //	h.showHeap();
  max = h.delMax();
-	System.out.println(max);
+ System.out.println(max.getWeight());
 //	h.showHeap();
-	h.insert(200);
-	System.out.println(h.delMax());
+ Vertex x = new Vertex(300,4);
+	h.insert(x);
+	if(h.isHeap())
+		System.out.println("Is heap");
+	System.out.println(h.delMax().getWeight());
 //	h.showHeap();
+	if(h.isHeap())
+		System.out.println("Is heap");
 	
 	
 	}
+
 	
 }
