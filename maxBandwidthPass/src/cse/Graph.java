@@ -10,12 +10,23 @@ public class Graph {
 	
 	HashMap<Integer,List<Edge>> adjacencyList ;
 	int V; // Number of vertices
-	int E;
+	public Graph(int V)
+	{
+		this.V= V;
+		adjacencyList = new HashMap<Integer,List<Edge>>();
+		for(int i=0;i<V;i++)
+			adjacencyList.put(i, new ArrayList<Edge>());
+		
+	}
+	public Graph()
+	{
+		
+	}
 
 public void SparseGraph(int V, int degree) // Create a graph with V vertices no edges
 //This code can create parallel paths 
 	{
-		this.E = V*degree;
+
 		this.V = V;
 		adjacencyList = new HashMap<Integer,List<Edge>>();
 		for(int i=0;i<V;i++)
@@ -78,6 +89,14 @@ public void SparseGraph(int V, int degree) // Create a graph with V vertices no 
 		for(int i=0;i<this.V;i++)
 			alledges.addAll(adjacencyList.get(i));
 		return alledges;
+	}
+	
+	public List<Edge> adjacentEdges(int source)
+	{
+		List<Edge> edges = new ArrayList<Edge>();
+		for(Edge e: adjacencyList.get(source))
+			edges.add(e);
+		return edges;
 	}
 
 	public static void main(String[] args) 

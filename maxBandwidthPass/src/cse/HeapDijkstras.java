@@ -69,20 +69,25 @@ public class HeapDijkstras {
 	public static void main(String[] args) 
 	{
 		Graph G1 = new Graph();
-		G1.SparseGraph(10, 3);
-		//G1.showGraph();
+		G1.SparseGraph(5000, 6);
+		G1.showGraph();
 		for(Edge e:G1.allEdges())
 			System.out.println(e.getFromVertex()+" "+e.getToVertex());
-		DijkstrasMaxBandWidth f = new DijkstrasMaxBandWidth(G1,0,4);
+		System.out.println("Dijkstras");
+		DijkstrasMaxBandWidth f = new DijkstrasMaxBandWidth(G1,85,1252);
 		 long startTime = System.currentTimeMillis();
 
 	    
-	     
-		 HeapDijkstras d = new HeapDijkstras(G1,0,4);
-		 MaxBandwidthKruskals kk = new MaxBandwidthKruskals(G1,0,4);
+		 System.out.println("HeapDijkstras");
+		 HeapDijkstras d = new HeapDijkstras(G1,85,1252);
+		
 	      long stopTime = System.currentTimeMillis();
 	      long elapsedTime = stopTime - startTime;
 	      System.out.println("Time taken = "+elapsedTime);
+	      System.out.println("Kruskals");
+	    MaxBandwidthKruskals kky = new MaxBandwidthKruskals(G1,85,1252);
+	    elapsedTime = stopTime - startTime;
+	    MaxBandwidthKruskals tt = new MaxBandwidthKruskals(G1,85,1252);
 	      
 	}
 
