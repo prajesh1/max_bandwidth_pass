@@ -84,7 +84,7 @@ public class HeapDijkstras {
 		
 		
 		
-		/*System.out.println("Dijkstras");
+		System.out.println("Dijkstras");
 		
 		startTime = System.currentTimeMillis();
 		DijkstrasMaxBandWidth f = new DijkstrasMaxBandWidth(G1,source,destination);
@@ -99,7 +99,7 @@ public class HeapDijkstras {
 		stopTime = System.currentTimeMillis();
 		elapsedTime = stopTime - startTime;
 		System.out.println("Time taken = "+elapsedTime);
-		*/
+		
 		System.out.println("Krushkals");
 		
 		startTime = System.currentTimeMillis();
