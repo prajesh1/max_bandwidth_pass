@@ -29,7 +29,11 @@ public class WeightedUnionFind {
 	private int root(int i)
 	{
 		while(data[i]!=i)
+		{
+			data[i]=data[data[i]]; //path compression
 			i=data[i];
+		}
+			
 		return i;
 	}
 	public void union(int i, int j)

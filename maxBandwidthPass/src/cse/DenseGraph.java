@@ -34,6 +34,7 @@ public  DenseGraph(int V, int degree) // Create a graph with V vertices no edges
 		{
 			for(int j=0;j<V;j++)
 			vertices.add(j);
+		}
 			
 			while(!vertices.isEmpty())	//This while is written here to avoid self loops
 			{
@@ -44,11 +45,11 @@ public  DenseGraph(int V, int degree) // Create a graph with V vertices no edges
 				int u = vertices.get(random1);
 				int v = vertices.get(random2);
 				
-				if(u!=v) // Is this required?? again for self loop
+				//if(u!=v) // Is this required?? again for self loop
 				{
 					//System.out.println(u+" and "+v);
 					Random w = new Random();
-					int weight = w.nextInt(100); // 0 to 99
+					int weight = w.nextInt(10000); // 0 to 99
 					addEdge(v,u,weight);
 					addEdge(u,v,weight);
 					vertices.remove((Integer)u);
@@ -56,7 +57,7 @@ public  DenseGraph(int V, int degree) // Create a graph with V vertices no edges
 				}
 			}
 			
-		}
+		
 	}
 	
 	public void addEdge(int u, int v,int weight)
