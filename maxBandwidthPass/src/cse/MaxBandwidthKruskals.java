@@ -9,11 +9,15 @@ public class MaxBandwidthKruskals {
 	public MaxBandwidthKruskals(Graph G,int source,int destination)
 	{
 		HeapSort heapSort = new HeapSort();
-		for(Edge e:G.allEdges())
-			heapSort.insert(e);
+		for(int k =0 ;k<G.V;k++)
+			for(Edge e:G.adjacentEdges(k))
+				heapSort.insert(e);
+			
+		//for(Edge e:G.allEdges())
+			//heapSort.insert(e);
 		WeightedUnionFind wuf = new WeightedUnionFind(G.V);
 		nextEdge = new Edge[G.V];
-		maximumSpanningTree = new Graph(G.V);
+		maximumSpanningTree = new Graph(G.V,true);
 		while(!heapSort.isEmpty())
 		{
 			Edge maxEdge = heapSort.delMax();
@@ -75,8 +79,8 @@ public class MaxBandwidthKruskals {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Graph G1 = new Graph();
-		G1.SparseGraph(6, 2);
+		Graph G1 = new Graph(6,2,true);
+		
 
 		 MaxBandwidthKruskals kk = new MaxBandwidthKruskals(G1,0,4);
 

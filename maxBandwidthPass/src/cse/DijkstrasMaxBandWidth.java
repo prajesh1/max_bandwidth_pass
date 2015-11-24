@@ -55,7 +55,7 @@ public class DijkstrasMaxBandWidth {
 	private void relax(Graph G,Integer s)
 	{
 		//System.out.println("inside relax "+s);
-		for(Edge e : G.adjacencyList.get(s))
+		for(Edge e : G.adjacentEdges(s))
 		{
 			
 			if(capacity[e.getToVertex()] < min(capacity[s],e.getWeight()))
@@ -85,14 +85,14 @@ public class DijkstrasMaxBandWidth {
 
 	public static void main(String[] args) 
 	{
-		Graph G1 = new Graph();
-		G1.SparseGraph(18000, 6);
+		Graph G1 = new Graph(50,10,false);
+		
 		//G1.showGraph();
 		 long startTime = System.currentTimeMillis();
 
 	    
 	     
-		DijkstrasMaxBandWidth d = new DijkstrasMaxBandWidth(G1,0,1);
+		DijkstrasMaxBandWidth d = new DijkstrasMaxBandWidth(G1,0,12);
 		
 	      long stopTime = System.currentTimeMillis();
 	      long elapsedTime = stopTime - startTime;

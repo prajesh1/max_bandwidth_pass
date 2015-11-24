@@ -8,7 +8,7 @@ public class Vertex{
 	public Vertex(int weight, int fromVertex) {
 		super();
 		this.weight = weight;
-		this.Vertex = Vertex;
+		this.Vertex = fromVertex;
 		
 	}
 	public Vertex(double d, int source) {

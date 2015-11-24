@@ -2,6 +2,7 @@ package cse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class HeapDijkstras {
 
@@ -44,7 +45,7 @@ public class HeapDijkstras {
 	{
 		//System.out.println("inside relax "+s);
 		int tt = s.getVertex();
-		for(Edge e : G.adjacencyList.get(tt))
+		for(Edge e : G.adjacentEdges(tt))
 		{
 			
 			if(capacity[e.getToVertex()] < min(capacity[s.getVertex()],e.getWeight()))
@@ -68,26 +69,46 @@ public class HeapDijkstras {
 
 	public static void main(String[] args) 
 	{
-		Graph G1 = new Graph();
-		G1.SparseGraph(5000, 6);
-		G1.showGraph();
-		for(Edge e:G1.allEdges())
-			System.out.println(e.getFromVertex()+" "+e.getToVertex());
-		System.out.println("Dijkstras");
-		DijkstrasMaxBandWidth f = new DijkstrasMaxBandWidth(G1,85,1252);
-		 long startTime = System.currentTimeMillis();
-
-	    
-		 System.out.println("HeapDijkstras");
-		 HeapDijkstras d = new HeapDijkstras(G1,85,1252);
+		int num_of_vertices = 5000;
+		int degree = 1000;
+		boolean adjacencyList = true;
+		Graph G1 = new Graph(num_of_vertices,degree,adjacencyList);
 		
-	      long stopTime = System.currentTimeMillis();
-	      long elapsedTime = stopTime - startTime;
-	      System.out.println("Time taken = "+elapsedTime);
-	      System.out.println("Kruskals");
-	    MaxBandwidthKruskals kky = new MaxBandwidthKruskals(G1,85,1252);
-	    elapsedTime = stopTime - startTime;
-	    MaxBandwidthKruskals tt = new MaxBandwidthKruskals(G1,85,1252);
+		Random r = new Random();
+		int source = r.nextInt(num_of_vertices);
+		int destination = r.nextInt(num_of_vertices);
+		
+		long startTime;
+		long stopTime;
+		long elapsedTime;
+		
+		
+		
+		/*System.out.println("Dijkstras");
+		
+		startTime = System.currentTimeMillis();
+		DijkstrasMaxBandWidth f = new DijkstrasMaxBandWidth(G1,source,destination);
+		stopTime = System.currentTimeMillis();
+		elapsedTime = stopTime - startTime;
+		System.out.println("Time taken = "+elapsedTime);
+	    
+		System.out.println("HeapDijkstras");
+		 
+		startTime = System.currentTimeMillis();
+		HeapDijkstras d = new HeapDijkstras(G1,source,destination);
+		stopTime = System.currentTimeMillis();
+		elapsedTime = stopTime - startTime;
+		System.out.println("Time taken = "+elapsedTime);
+		*/
+		System.out.println("Krushkals");
+		
+		startTime = System.currentTimeMillis();
+		MaxBandwidthKruskals dff = new MaxBandwidthKruskals(G1,source,destination);
+		stopTime = System.currentTimeMillis();
+		elapsedTime = stopTime - startTime;
+		System.out.println("Time taken = "+elapsedTime);
+		 
+	    
 	      
 	}
 
